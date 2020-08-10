@@ -1,20 +1,26 @@
-import { GetStaticProps } from "next";
-import db from "database/connection";
-import { FaqModel } from "api/Faq";
+import { GetStaticProps } from 'next';
+import { FaqModel } from 'api/Faq';
+import db from 'database/connection';
 
 interface FaqProps {
-  faq: FaqModel[];
+    faq: FaqModel[];
 }
 
 export default function Faq({ faq }: FaqProps) {
-  return <div>{faq}</div>;
+    return (
+        <div>
+            {faq.map((item) => (
+                <div key={item.id}>
+                    {item.question} | {item.answer}
+                </div>
+            ))}
+        </div>
+    );
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  console.log(db('faq').first());
-  const faq = await db("cars");
-  console.log(faq);
-  return {
-    props: { faq },
-  };
+    const faq = await db('faq');
+    return {
+        props: { faq },
+    };
 };
