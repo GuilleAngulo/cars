@@ -14,12 +14,13 @@ module.exports = {
     },
     extends: [
         'plugin:react/recommended',
-        'plugin:@typescript-eslint/recommended',
         'prettier/@typescript-eslint',
+        'plugin:@typescript-eslint/recommended',
         'plugin:prettier/recommended',
     ],
     rules: {
         'react/react-in-jsx-scope': 'off',
         '@typescript-eslint/explicit-module-boundary-types': 'off',
+        'react/prop-types': 'off',
     },
 };
