@@ -10,12 +10,12 @@ export interface CarModel {
     photoUrl: string;
 }
 
-export interface CarMake {
+export interface MakeSelect {
     name: string;
     count: number;
 }
 
-export interface CarModel {
+export interface ModelSelect {
     name: string;
     count: number;
 }

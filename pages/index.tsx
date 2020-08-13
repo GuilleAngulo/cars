@@ -1,14 +1,14 @@
 import { GetServerSideProps } from 'next';
 import { getMakes, getModels } from 'database/api/car';
-import { CarMake, CarModel } from 'database/models/Car';
+import { CarModel, ModelSelect, MakeSelect } from 'database/models/Car';
 import { Formik, Form, Field, useField } from 'formik';
 import router, { useRouter } from 'next/router';
 import { getAsString } from 'utils/getAsString';
 import useSWR from 'swr';
 
 export interface HomeProps {
-    makes: CarMake[];
-    models: CarModel[];
+    makes: MakeSelect[];
+    models: ModelSelect[];
 }
 
 const prices = [500, 1000, 5000, 15000, 25000, 50000];
@@ -17,10 +17,10 @@ export default function Search({ makes, models }: HomeProps) {
     const { query } = useRouter();
 
     const initialValues = {
-        make: getAsString(query.make) || 'all',
-        model: getAsString(query.model) || 'all',
-        minPrice: getAsString(query.minPrice) || 'all',
-        maxPrice: getAsString(query.maxPrice) || 'all',
+        make: getAsString(query.make || '') || 'all',
+        model: getAsString(query.model || '') || 'all',
+        minPrice: getAsString(query.minPrice || '') || 'all',
+        maxPrice: getAsString(query.maxPrice || '') || 'all',
     };
 
     return (
@@ -29,7 +29,7 @@ export default function Search({ makes, models }: HomeProps) {
             onSubmit={(values) => {
                 router.push(
                     {
-                        pathname: '/',
+                        pathname: '/cars',
                         query: { ...values, page: 1 },
                     },
                     undefined,
@@ -39,9 +39,9 @@ export default function Search({ makes, models }: HomeProps) {
         >
             {({ values }) => (
                 <Form>
-                    <div className="container px-6 py-6 mx-auto m-12 shadow-2xl rounded-md">
-                        <div className="w-full lg:max-w-full lg:flex">
-                            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                    <div className="container m-12 mx-auto px-6 py-6 shadow-2xl rounded-md xl:w-2/6 lg:w-2/6 md:w-3/6 sm:w-3/6">
+                        <div className="flex flex-col">
+                            <div className="text-center w-full px-3 mb-6 md:mb-0 my-2">
                                 <label
                                     id="search-make"
                                     className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -74,8 +74,8 @@ export default function Search({ makes, models }: HomeProps) {
                                     </div>
                                 </div>
                             </div>
-                            <ModelSelect make={values.make} name="model" models={models} />
-                            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                            <ModelSelector make={values.make} name="model" models={models} />
+                            <div className="text-center w-full px-3 mb-6 md:mb-0 my-2">
                                 <label
                                     id="search-min-price"
                                     className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -111,7 +111,7 @@ export default function Search({ makes, models }: HomeProps) {
                                     </div>
                                 </div>
                             </div>
-                            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                            <div className="text-center w-full px-3 mb-6 md:mb-0 my-2">
                                 <label
                                     id="search-max-price"
                                     className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -151,7 +151,7 @@ export default function Search({ makes, models }: HomeProps) {
                         <div className="px-5 py-5">
                             <button
                                 type="submit"
-                                className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                                className="bg-transparent w-full hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
                             >
                                 Search
                             </button>
@@ -165,21 +165,21 @@ export default function Search({ makes, models }: HomeProps) {
 
 export interface ModelSelectProps {
     name: string;
-    models: CarModel[];
+    models: ModelSelect[];
     make: string;
 }
 
-export function ModelSelect({ models, make, ...props }: ModelSelectProps) {
+export function ModelSelector({ models, make, ...props }: ModelSelectProps) {
     const [field] = useField({
         name: props.name,
     });
 
-    const { data } = useSWR<CarModel[]>('/api/models?make=' + make);
+    const { data } = useSWR<MakeSelect[]>('/api/models?make=' + make);
 
     const newModels = data || models;
 
     return (
-        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+        <div className="text-center w-full px-3 mb-6 md:mb-0 my-2">
             <label
                 id="search-model"
                 className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -218,7 +218,7 @@ export function ModelSelect({ models, make, ...props }: ModelSelectProps) {
 export const getServerSideProps: GetServerSideProps = async (context) => {
     //const make = getAsString(context.query.make);
 
-    const make = getAsString(context.query.make) || 'all';
+    const make = getAsString(context.query.make || '') || 'all';
 
     const [makes, models] = await Promise.all([getMakes(), getModels(make)]);
 

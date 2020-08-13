@@ -15,26 +15,22 @@ export default function CarDetails({ car }: CarDetailsProps) {
         <div className="container mx-auto m-12 shadow-2xl rounded-md">
             <div className="w-full lg:max-w-full lg:flex">
                 <div
-                    className="h-48 lg:h-auto lg:w-3/6 flex-none bg-cover bg-center rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
+                    className="lg:h-auto h-full lg:w-3/6 sm:h-56 flex-none bg-cover bg-center rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
                     style={{
                         backgroundImage: `url(${car.photoUrl})`,
                     }}
                     title={`${car.make} ${car.model} (${car.year})`}
                 ></div>
-                <div className="bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal w-3/6">
-                    <div className="mb-8">
+                <div className="bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+                    <div className="mb-4">
                         <div className="text-gray-900 font-bold text-3xl mb-2">{`${car.make} ${car.model}`}</div>
-                        <div className="rounded-full py-1 px-2 bg-gray-500 bg-opacity-25 w-32 text-gray-900 font-bold text-xl text-center mb-2">
-                            <span className="text-gray-600 text-l">R$ </span>
-                            {car.price}
-                        </div>
-                        <p className="text-gray-700 text-base">{car.details}</p>
+                        <span className="text-gray-900 rounded-t-lg font-bold text-xl bg-gray-500 bg-opacity-25 px-1 py-1 mb-2">
+                            R$ {car.price}
+                        </span>
+
+                        <p className="text-gray-700 text-base mt-2">{car.details}</p>
                     </div>
                     <div className="flex flex-row">
-                        <div className="flex flex-col px-5 items-center">
-                            <FaRoute size={28} />
-                            <p className="text-gray-900 leading-none py-2">{car.kilometers}</p>
-                        </div>
                         <div className="flex flex-col px-5 items-center">
                             <FaGasPump size={28} />
                             <p className="text-gray-900 leading-none py-2">{car.fuelType}</p>
@@ -42,6 +38,10 @@ export default function CarDetails({ car }: CarDetailsProps) {
                         <div className="flex flex-col px-5 items-center">
                             <FaCalendarAlt size={28} />
                             <p className="text-gray-900 leading-none py-2">{car.year}</p>
+                        </div>
+                        <div className="flex flex-col px-5 items-center">
+                            <FaRoute size={28} />
+                            <p className="text-gray-900 leading-none py-2">{car.kilometers}</p>
                         </div>
                     </div>
                 </div>
