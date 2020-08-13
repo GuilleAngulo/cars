@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next';
 import { CarModel } from 'database/models/Car';
 import { FaRoute, FaGasPump, FaCalendarAlt } from 'react-icons/fa';
-import { getCarById } from 'api/car';
+import { getCarById } from 'database/api/car';
 
 interface CarDetailsProps {
     car: CarModel | null | undefined;
@@ -25,7 +25,8 @@ export default function CarDetails({ car }: CarDetailsProps) {
                     <div className="mb-8">
                         <div className="text-gray-900 font-bold text-3xl mb-2">{`${car.make} ${car.model}`}</div>
                         <div className="rounded-full py-1 px-2 bg-gray-500 bg-opacity-25 w-32 text-gray-900 font-bold text-xl text-center mb-2">
-                            R${car.price}
+                            <span className="text-gray-600 text-l">R$ </span>
+                            {car.price}
                         </div>
                         <p className="text-gray-700 text-base">{car.details}</p>
                     </div>

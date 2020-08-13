@@ -11,6 +11,11 @@ export interface CarModel {
 }
 
 export interface CarMake {
-    make: string;
+    name: string;
+    count: number;
+}
+
+export interface CarModel {
+    name: string;
     count: number;
 }

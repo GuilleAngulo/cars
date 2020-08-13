@@ -11,7 +11,10 @@ function MyApp({ Component, pageProps }: AppProps) {
             <Head>
                 <title>Cars</title>
                 <link rel="icon" href="/favicon.ico" />
-                <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+                <meta
+                    name="viewport"
+                    content="minimum-scale=1, initial-scale=1, width=device-width"
+                />
             </Head>
             <Header />
             <SWRConfig value={{ fetcher: (url: string) => axios(url).then((res) => res.data) }}>
