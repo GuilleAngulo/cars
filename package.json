@@ -12,10 +12,12 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "formik": "^2.1.5",
     "knex": "^0.21.2",
     "next": "9.5.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-icons": "^3.10.0",
     "sqlite3": "^5.0.0",
     "swr": "^0.3.0"
   },
