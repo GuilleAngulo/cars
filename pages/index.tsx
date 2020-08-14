@@ -1,9 +1,9 @@
 import { GetServerSideProps } from 'next';
 import { getMakes, getModels } from 'database/api/car';
-import { CarModel, ModelSelect, MakeSelect } from 'database/models/Car';
+import { ModelSelect, MakeSelect } from 'database/models/Car';
 import { Formik, Form, Field, useField } from 'formik';
 import router, { useRouter } from 'next/router';
-import { getAsString } from 'utils/getAsString';
+import { getAsString } from 'utils';
 import useSWR from 'swr';
 
 export interface HomeProps {
@@ -11,7 +11,7 @@ export interface HomeProps {
     models: ModelSelect[];
 }
 
-const prices = [500, 1000, 5000, 15000, 25000, 50000];
+const prices = [10000, 50000, 150000, 250000, 500000, 1000000];
 
 export default function Search({ makes, models }: HomeProps) {
     const { query } = useRouter();
@@ -44,7 +44,7 @@ export default function Search({ makes, models }: HomeProps) {
                             <div className="text-center w-full px-3 mb-6 md:mb-0 my-2">
                                 <label
                                     id="search-make"
-                                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                    className="block uppercase tracking-wide text-gray-700 text-xs text-left font-bold mb-2"
                                 >
                                     Make
                                 </label>
@@ -78,7 +78,7 @@ export default function Search({ makes, models }: HomeProps) {
                             <div className="text-center w-full px-3 mb-6 md:mb-0 my-2">
                                 <label
                                     id="search-min-price"
-                                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                    className="block uppercase tracking-wide text-gray-700 text-xs text-left font-bold mb-2"
                                 >
                                     Min Price
                                 </label>
@@ -114,7 +114,7 @@ export default function Search({ makes, models }: HomeProps) {
                             <div className="text-center w-full px-3 mb-6 md:mb-0 my-2">
                                 <label
                                     id="search-max-price"
-                                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                    className="block uppercase tracking-wide text-gray-700 text-xs text-left font-bold mb-2"
                                 >
                                     Max Price
                                 </label>
@@ -174,7 +174,10 @@ export function ModelSelector({ models, make, ...props }: ModelSelectProps) {
         name: props.name,
     });
 
-    const { data } = useSWR<MakeSelect[]>('/api/models?make=' + make);
+    const { data } = useSWR<MakeSelect[]>('/api/models?make=' + make, {
+        //Dedupe requests with the same key in this time span
+        dedupingInterval: 60000,
+    });
 
     const newModels = data || models;
 
@@ -182,7 +185,7 @@ export function ModelSelector({ models, make, ...props }: ModelSelectProps) {
         <div className="text-center w-full px-3 mb-6 md:mb-0 my-2">
             <label
                 id="search-model"
-                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                className="block uppercase tracking-wide text-gray-700 text-xs text-left font-bold mb-2"
             >
                 Model
             </label>

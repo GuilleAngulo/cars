@@ -13,7 +13,8 @@ export async function seed(knex: Knex) {
             details:
                 'Em 2019 a Audi completa 25 anos de presença oficial da marca no Brasil e, para celebrar, lançamos o A3 Sedan Prestige Plus 25 Anos. Produzido atualmente em São José dos Pinhais - PR, o modelo ícone da marca está em sua terceira geração e recebeu diversas atualizações para esta edição especial, que contará com apenas 600 unidades.',
             price: 13485,
-            photoUrl: 'https://res.cloudinary.com/guillermoangulo/image/upload/v1596898787/cars/audi-A3-sedan.jpg',
+            photoUrl:
+                'https://res.cloudinary.com/guillermoangulo/image/upload/v1596898787/cars/audi-A3-sedan.jpg',
         },
         {
             id: 2,
@@ -25,7 +26,8 @@ export async function seed(knex: Knex) {
             details:
                 'A nova geração do sedan Audi A6 chegou ainda mais elegante e tecnológica. O design na nova linguagem Audi e o sistema digital e sensível ao toque fazem dele o companheiro ideal para quem procura luxo e inteligência.',
             price: 150000,
-            photoUrl: 'https://res.cloudinary.com/guillermoangulo/image/upload/v1596898788/cars/audi-A6-sedan.jpg',
+            photoUrl:
+                'https://res.cloudinary.com/guillermoangulo/image/upload/v1596898788/cars/audi-A6-sedan.jpg',
         },
         {
             id: 3,
@@ -37,7 +39,8 @@ export async function seed(knex: Knex) {
             details:
                 'A nova geração do Audi Q5 confirma seu lugar especial entre os SUVs de luxo. Ele tem o tamanho ideal: funcional para o trânsito urbano e robusto para um fim de semana na praia ou na montanha.',
             price: 13485,
-            photoUrl: 'https://res.cloudinary.com/guillermoangulo/image/upload/v1596898787/cars/audi-Q5.jpg',
+            photoUrl:
+                'https://res.cloudinary.com/guillermoangulo/image/upload/v1596898787/cars/audi-Q5.jpg',
         },
         {
             id: 4,
@@ -49,7 +52,8 @@ export async function seed(knex: Knex) {
             details:
                 'Com potência de 600 cv, o Audi RS Q8 é o mais poderoso SUV coupé da Audi Sport. Além da incomparável performance RS, o modelo surpreende por sua capacidade de constante transformação – que vai do design inovador à experiência de liberdade ao volante. Descubra todo o poder do Audi RS Q8.',
             price: 13485,
-            photoUrl: 'https://res.cloudinary.com/guillermoangulo/image/upload/v1596898787/cars/audi-Q8.jpg',
+            photoUrl:
+                'https://res.cloudinary.com/guillermoangulo/image/upload/v1596898787/cars/audi-Q8.jpg',
         },
         {
             id: 5,
@@ -61,7 +65,8 @@ export async function seed(knex: Knex) {
             details:
                 'Criado para oferecer emoção e elegância. Mais potente do que nunca. A nova geração do BMW M5 é a afirmação da suprema excelência da engenharia e da condução inovadora e inteligente para o levar a uma dimensão inimaginável.',
             price: 204900,
-            photoUrl: 'https://res.cloudinary.com/guillermoangulo/image/upload/v1596900179/cars/BMW-M5.jpg',
+            photoUrl:
+                'https://res.cloudinary.com/guillermoangulo/image/upload/v1596900179/cars/BMW-M5.jpg',
         },
         {
             id: 6,
@@ -73,7 +78,8 @@ export async function seed(knex: Knex) {
             details:
                 'Além do som de alta-fidelidade do BMW 330i também impressiona a quantidade de recursos disponíveis, como HD interno, carregador de celular por indução, roteador wi-fi e até CD player para quem ainda curte ouvir música à moda antiga, sem usar entrada USB com conexão Bluetooth.',
             price: 324900,
-            photoUrl: 'https://res.cloudinary.com/guillermoangulo/image/upload/v1596900179/cars/BMW-330i.jpg',
+            photoUrl:
+                'https://res.cloudinary.com/guillermoangulo/image/upload/v1596900179/cars/BMW-330i.jpg',
         },
         {
             id: 7,
@@ -85,7 +91,8 @@ export async function seed(knex: Knex) {
             details:
                 'Quando o teto se abre totalmente, eis o momento em que não existem mais limites para o seu prazer de dirigir, no novo BMW Z4. Um roadster que não poderia ser melhor: aberto, esportivo e sem compromissos.',
             price: 145500,
-            photoUrl: 'https://res.cloudinary.com/guillermoangulo/image/upload/v1596900179/cars/BMW-Z4.jpg',
+            photoUrl:
+                'https://res.cloudinary.com/guillermoangulo/image/upload/v1596900179/cars/BMW-Z4.jpg',
         },
         {
             id: 8,
@@ -97,7 +104,8 @@ export async function seed(knex: Knex) {
             details:
                 'Você se impressiona toda vez que entra em um Ka. Toda a linha investe em design, fazendo do Ka um carro muito moderno. Além disso, com todo o conforto dos bancos e seu acabamento superior, você nem vai perceber que está no trânsito.',
             price: 48200,
-            photoUrl: 'https://res.cloudinary.com/guillermoangulo/image/upload/v1596901927/cars/ford-KA.jpg',
+            photoUrl:
+                'https://res.cloudinary.com/guillermoangulo/image/upload/v1596901927/cars/ford-KA.jpg',
         },
         {
             id: 9,
@@ -109,7 +117,8 @@ export async function seed(knex: Knex) {
             details:
                 'Com design exclusivo, performance em pista e um ronco sem igual, o Mustang Black Shadow vai marcar a história. Esta é uma edição especial que mantém a tradição de se adequar à forma como você dirige, até o último detalhe.',
             price: 270500,
-            photoUrl: 'https://res.cloudinary.com/guillermoangulo/image/upload/v1596901927/cars/ford-mustang.webp',
+            photoUrl:
+                'https://res.cloudinary.com/guillermoangulo/image/upload/v1596901927/cars/ford-mustang.webp',
         },
         {
             id: 10,
@@ -121,7 +130,8 @@ export async function seed(knex: Knex) {
             details:
                 'A Nova Ranger oferece um visual mais audacioso, novos acabamentos interiores e vem com recursos inovadores. O que não mudou é a sua variedade de versões e estilos de cabine para atender a todas as necessidades.',
             price: 63500,
-            photoUrl: 'https://res.cloudinary.com/guillermoangulo/image/upload/v1596901927/cars/ford-ranger.jpg',
+            photoUrl:
+                'https://res.cloudinary.com/guillermoangulo/image/upload/v1596901927/cars/ford-ranger.jpg',
         },
         {
             id: 11,
@@ -159,7 +169,8 @@ export async function seed(knex: Knex) {
             details:
                 'O Renault KWID OUTSIDER é o modelo mais alto do segmento. Tem barras de teto e outros detalhes que fazem dele um SUV compacto, valente e robusto.',
             price: 35000,
-            photoUrl: 'https://res.cloudinary.com/guillermoangulo/image/upload/v1596906534/cars/renault-kwid.webp',
+            photoUrl:
+                'https://res.cloudinary.com/guillermoangulo/image/upload/v1596906534/cars/renault-kwid.webp',
         },
         {
             id: 14,
@@ -171,7 +182,8 @@ export async function seed(knex: Knex) {
             details:
                 'O Renault SANDERO vem com Media Evolution 7” touchscreen e tecnologias Android Auto e Apple CarPlay, para espelhamento de apps como Spotify, Waze, Google Maps e WhatsApp.',
             price: 16500,
-            photoUrl: 'https://res.cloudinary.com/guillermoangulo/image/upload/v1596906534/cars/renault-sandero.webp',
+            photoUrl:
+                'https://res.cloudinary.com/guillermoangulo/image/upload/v1596906534/cars/renault-sandero.webp',
         },
         {
             id: 15,
@@ -183,7 +195,8 @@ export async function seed(knex: Knex) {
             details:
                 'O piloto automático, item de série do Renault CAPTUR, vem com regulador e limitador de velocidade, que possibilitam uma opção de condução mais confortável e segura para todos os ocupantes do veículo.',
             price: 58500,
-            photoUrl: 'https://res.cloudinary.com/guillermoangulo/image/upload/v1596906534/cars/renault-captur.webp',
+            photoUrl:
+                'https://res.cloudinary.com/guillermoangulo/image/upload/v1596906534/cars/renault-captur.webp',
         },
         {
             id: 16,
@@ -195,7 +208,8 @@ export async function seed(knex: Knex) {
             details:
                 'O painel traz seus botões e comandos totalmente direcionados para o motorista, facilitando seu acesso a ele. O visual, mais moderno, também possui uma série de recursos tecnológicos e acabamento refinado.',
             price: 20000,
-            photoUrl: 'https://res.cloudinary.com/guillermoangulo/image/upload/v1596908945/cars/volkswagen-gol.png',
+            photoUrl:
+                'https://res.cloudinary.com/guillermoangulo/image/upload/v1596908945/cars/volkswagen-gol.png',
         },
         {
             id: 17,
@@ -220,7 +234,8 @@ export async function seed(knex: Knex) {
             details:
                 'O Novo Polo é o único da categoria a conquistar nota máxima em segurança pelo Latin NCAP com cinco estrelas tanto para a proteção do ocupante adulto como para a do ocupante infantil.',
             price: 65000,
-            photoUrl: 'https://res.cloudinary.com/guillermoangulo/image/upload/v1596908945/cars/volkswagen-polo.jpg',
+            photoUrl:
+                'https://res.cloudinary.com/guillermoangulo/image/upload/v1596908945/cars/volkswagen-polo.jpg',
         },
         {
             id: 19,
@@ -232,7 +247,8 @@ export async function seed(knex: Knex) {
             details:
                 'Descubra a sensação de dirigir o Peugeot 208, um dos carros mais econômicos do Brasil. Equipado com o exclusivo PEUGEOT i-Cockpit®, oferece uma experiência única de condução, além do PEUGEOT Connect Radio que permite o espelhamento do Waze* e o novo câmbio automático de 6 marchas.',
             price: 39900,
-            photoUrl: 'https://res.cloudinary.com/guillermoangulo/image/upload/v1596909371/cars/peugeot-208.webp',
+            photoUrl:
+                'https://res.cloudinary.com/guillermoangulo/image/upload/v1596909371/cars/peugeot-208.webp',
         },
         {
             id: 20,
@@ -244,7 +260,8 @@ export async function seed(knex: Knex) {
             details:
                 'A linha SUV Peugeot acaba de ir mais longe, com o lançamento no Novo SUV Peugeot 2008 turbo THP. Além do exclusivo Peugeot i-Cockpit® e a melhor experiência de condução com teto panorâmico, o lançamento vem com câmbio automático de 6 marchas, motor turbo THP Flex de 173 cv de potência e torque máximo 24,5 kgf.m (DIN), em apenas 1.400 rpm.',
             price: 49000,
-            photoUrl: 'https://res.cloudinary.com/guillermoangulo/image/upload/v1596909371/cars/peugeot-2008.webp',
+            photoUrl:
+                'https://res.cloudinary.com/guillermoangulo/image/upload/v1596909371/cars/peugeot-2008.webp',
         },
         {
             id: 21,
@@ -256,7 +273,8 @@ export async function seed(knex: Knex) {
             details:
                 'Agora você pode dar um toque de aventura para o seu Mobi Like. O Kit Cross transforma seu Mobi em um auntêntico desbravador da vida urbana, com detalhes inconfundíveis que traduzem exclusividade para seu design único.',
             price: 25000,
-            photoUrl: 'https://res.cloudinary.com/guillermoangulo/image/upload/v1596910883/cars/fiat-mobi.jpg',
+            photoUrl:
+                'https://res.cloudinary.com/guillermoangulo/image/upload/v1596910883/cars/fiat-mobi.jpg',
         },
         {
             id: 22,
@@ -268,7 +286,8 @@ export async function seed(knex: Knex) {
             details:
                 'A excelente dirigibilidade do novo Corolla é garantida pelos novos motores e pela plataforma TNGA. Para a versão Altis Hybrid, a tecnologia inovadora garante máxima eficiência e desempenho. ',
             price: 520500,
-            photoUrl: 'https://res.cloudinary.com/guillermoangulo/image/upload/v1596910883/cars/toyota-corolla.jpg',
+            photoUrl:
+                'https://res.cloudinary.com/guillermoangulo/image/upload/v1596910883/cars/toyota-corolla.jpg',
         },
     ]);
 }

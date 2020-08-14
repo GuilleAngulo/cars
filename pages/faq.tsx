@@ -1,5 +1,5 @@
 import { GetStaticProps } from 'next';
-import { FaqModel } from 'api/Faq';
+import { FaqModel } from 'database/models/Faq';
 import db from 'database/connection';
 
 interface FaqProps {
