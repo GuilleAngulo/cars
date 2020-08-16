@@ -5,6 +5,8 @@ import { getAsString } from 'utils';
 import { CarModel, MakeSelect, ModelSelect } from 'database/models/Car';
 import Pagination from 'components/Pagination';
 import { useRouter } from 'next/router';
+import useSWR from 'swr';
+import { stringify } from 'querystring'; //Object to query string
 
 export interface CarsListProps {
     makes: MakeSelect[];
@@ -15,6 +17,9 @@ export interface CarsListProps {
 
 export default function CarsList({ makes, models, cars, totalPages }: CarsListProps) {
     const { query } = useRouter();
+    const { data } = useSWR('api/cars?' + stringify(query), {
+        initialData: { cars, totalPages },
+    });
     const page = parseInt(getAsString(query.page) || '1');
     return (
         <>
@@ -28,12 +33,14 @@ export default function CarsList({ makes, models, cars, totalPages }: CarsListPr
                     </pre>
                 </div>
             </div>
-            <Pagination
-                page={page}
-                totalPages={totalPages}
-                itemsPerPage={cars.length}
-                query={query}
-            />
+            {totalPages > 1 && (
+                <Pagination
+                    page={page}
+                    totalPages={totalPages}
+                    itemsPerPage={cars.length}
+                    query={query}
+                />
+            )}
         </>
     );
 }
