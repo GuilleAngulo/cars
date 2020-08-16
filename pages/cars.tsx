@@ -15,7 +15,7 @@ export interface CarsListProps {
 
 export default function CarsList({ makes, models, cars, totalPages }: CarsListProps) {
     const { query } = useRouter();
-    const page = parseInt(query.page);
+    const page = parseInt(getAsString(query.page) || '1');
     return (
         <>
             <div className="flex">
@@ -24,11 +24,16 @@ export default function CarsList({ makes, models, cars, totalPages }: CarsListPr
                 </div>
                 <div className="w-3/6">
                     <pre style={{ fontSize: '1rem' }}>
-                        {JSON.stringify({ cars, totalPages }, null, 2)}
+                        {JSON.stringify({ cars: cars[0], totalPages }, null, 2)}
                     </pre>
                 </div>
             </div>
-            <Pagination page={page} totalPages={totalPages} />
+            <Pagination
+                page={page}
+                totalPages={totalPages}
+                itemsPerPage={cars.length}
+                query={query}
+            />
         </>
     );
 }

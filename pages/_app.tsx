@@ -16,10 +16,15 @@ function MyApp({ Component, pageProps }: AppProps) {
                     content="minimum-scale=1, initial-scale=1, width=device-width"
                 />
             </Head>
-            <Header />
-            <SWRConfig value={{ fetcher: (url: string) => axios(url).then((res) => res.data) }}>
-                <Component {...pageProps} />
-            </SWRConfig>
+            <div className="flex flex-col h-screen justify-between">
+                <Header />
+
+                <SWRConfig value={{ fetcher: (url: string) => axios(url).then((res) => res.data) }}>
+                    <div className="mb-auto">
+                        <Component {...pageProps} />
+                    </div>
+                </SWRConfig>
+            </div>
         </>
     );
 }
