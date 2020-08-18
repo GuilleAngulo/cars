@@ -3,87 +3,123 @@ import { ParsedUrlQuery } from 'querystring';
 import { getAsString } from 'utils';
 import { useRouter } from 'next/router';
 
-interface PaginationProps {
+interface PaginationGlobalProps {
     totalPages: number;
     totalItems: number;
 }
 
-export default function Pagination({ totalPages, totalItems }: PaginationProps) {
+export default function Pagination({ totalPages, totalItems }: PaginationGlobalProps) {
     const { query } = useRouter();
     const page = parseInt(getAsString(query.page)) || 1;
+    const hasPrevious = page > 1;
+    const hasNext = page < totalPages;
+    const hasMultiplePages = totalPages > 1;
 
     return (
         <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
-            <div className="flex-1 flex justify-between sm:hidden">
-                {page > 1 ? (
-                    <PaginationLink page={page - 1} query={query}>
-                        <a className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
-                            Previous
-                        </a>
-                    </PaginationLink>
-                ) : (
-                    <a className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white">
-                        Previous
-                    </a>
-                )}
-                {page < totalPages ? (
-                    <PaginationLink page={page + 1} query={query}>
-                        <a className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
-                            Next
-                        </a>
-                    </PaginationLink>
-                ) : (
-                    <a className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white cursor-not-allowed">
-                        Next
-                    </a>
-                )}
-            </div>
+            {hasMultiplePages && (
+                <PaginationMobile
+                    query={query}
+                    page={page}
+                    hasPrevious={hasPrevious}
+                    hasNext={hasNext}
+                />
+            )}
             <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                 <ResultDetails page={page} totalPages={totalPages} totalItems={totalItems} />
-                <div>
-                    <nav className="relative z-0 inline-flex shadow-sm">
-                        {page > 1 && (
-                            <PaginationLink page={page - 1} query={query}>
-                                <a
-                                    className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150"
-                                    aria-label="Previous"
-                                >
-                                    <PreviousPageSVG />
-                                </a>
-                            </PaginationLink>
-                        )}
-
-                        {[...Array(totalPages)].map((_, i) => (
-                            <PaginationLink page={i + 1} query={query} key={i}>
-                                <a
-                                    key={i}
-                                    className="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 active:border-blue-300 active:shadow-outline-blue transition ease-in-out duration-150"
-                                >
-                                    {i + 1}
-                                </a>
-                            </PaginationLink>
-                        ))}
-
-                        {page < totalPages ? (
-                            <PaginationLink page={page + 1} query={query}>
-                                <a
-                                    className="-ml-px relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150"
-                                    aria-label="Next"
-                                >
-                                    <NextPageSVG />
-                                </a>
-                            </PaginationLink>
-                        ) : (
-                            <a
-                                className="-ml-px relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-500 text-gray-400"
-                                aria-label="Next"
-                            >
-                                <NextPageSVG />
-                            </a>
-                        )}
-                    </nav>
-                </div>
+                {hasMultiplePages && (
+                    <PaginationNav
+                        query={query}
+                        page={page}
+                        totalPages={totalPages}
+                        hasPrevious={hasPrevious}
+                        hasNext={hasNext}
+                    />
+                )}
             </div>
+        </div>
+    );
+}
+
+interface PaginationProps {
+    query: ParsedUrlQuery;
+    page: number;
+    totalPages?: number;
+    hasPrevious: boolean;
+    hasNext: boolean;
+}
+
+function PaginationNav({ page, query, totalPages, hasPrevious, hasNext }: PaginationProps) {
+    return (
+        <nav className="relative z-0 inline-flex shadow-sm">
+            {hasPrevious && (
+                <PaginationLink page={page - 1} query={query}>
+                    <a
+                        className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150"
+                        aria-label="Previous"
+                    >
+                        <PreviousPageSVG />
+                    </a>
+                </PaginationLink>
+            )}
+
+            {[...Array(totalPages)].map((_, i) => (
+                <PaginationLink page={i + 1} query={query} key={i}>
+                    <a
+                        key={i}
+                        className="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 active:border-blue-300 active:shadow-outline-blue transition ease-in-out duration-150"
+                    >
+                        {i + 1}
+                    </a>
+                </PaginationLink>
+            ))}
+
+            {hasNext ? (
+                <PaginationLink page={page + 1} query={query}>
+                    <a
+                        className="-ml-px relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150"
+                        aria-label="Next"
+                    >
+                        <NextPageSVG />
+                    </a>
+                </PaginationLink>
+            ) : (
+                <a
+                    className="-ml-px relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-500 text-gray-400"
+                    aria-label="Next"
+                >
+                    <NextPageSVG />
+                </a>
+            )}
+        </nav>
+    );
+}
+
+function PaginationMobile({ page, query, hasPrevious, hasNext }: PaginationProps) {
+    return (
+        <div className="flex-1 flex justify-between sm:hidden">
+            {hasPrevious ? (
+                <PaginationLink page={page - 1} query={query}>
+                    <a className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
+                        Previous
+                    </a>
+                </PaginationLink>
+            ) : (
+                <a className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white cursor-not-allowed">
+                    Previous
+                </a>
+            )}
+            {hasNext ? (
+                <PaginationLink page={page + 1} query={query}>
+                    <a className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
+                        Next
+                    </a>
+                </PaginationLink>
+            ) : (
+                <a className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white cursor-not-allowed">
+                    Next
+                </a>
+            )}
         </div>
     );
 }
@@ -101,6 +137,7 @@ function PaginationLink({ query, page, children }: PaginationLinkProps) {
                 pathname: '/cars',
                 query: { ...query, page },
             }}
+            scroll={false}
             shallow
         >
             {children}

@@ -10,6 +10,7 @@ import useSWR from 'swr';
 import { stringify } from 'querystring'; //Object to query string
 import { useState } from 'react';
 import deepEqual from 'fast-deep-equal';
+import CarNotFound from 'components/CarNotFound';
 
 export interface CarsListProps {
     makes: MakeSelect[];
@@ -22,6 +23,7 @@ export interface CarsListProps {
 export default function CarsList({ makes, models, cars, totalPages, totalItems }: CarsListProps) {
     const { query } = useRouter();
     const [serverQuery] = useState(query);
+    const [loading, setLoaging] = useState(false);
     const { data } = useSWR('api/cars?' + stringify(query), {
         dedupingInterval: 10000,
         initialData: deepEqual(query, serverQuery) ? { cars, totalPages, totalItems } : undefined,
@@ -33,20 +35,19 @@ export default function CarsList({ makes, models, cars, totalPages, totalItems }
                 <div className="col-span-1">
                     <Search makes={makes} models={models} />
                 </div>
+
+                {!data?.cars.length && (
+                    <CarNotFound text={'Cars not found ...'} backButton={true} />
+                )}
+
                 <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4 m-5 col-span-2">
                     {(data?.cars || []).map((car) => (
                         <CarItem key={car.id} car={car} />
                     ))}
                 </div>
             </div>
-            <div className="h-10">
-                {totalPages > 1 && (
-                    <Pagination
-                        totalPages={data?.totalPages || 0}
-                        totalItems={data?.totalItems || 0}
-                    />
-                )}
-            </div>
+
+            <Pagination totalPages={data?.totalPages || 0} totalItems={data?.totalItems || 0} />
         </div>
     );
 }
