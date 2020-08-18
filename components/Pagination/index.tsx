@@ -1,16 +1,19 @@
 import Link from 'next/link';
 import { ParsedUrlQuery } from 'querystring';
+import { getAsString } from 'utils';
+import { useRouter } from 'next/router';
 
 interface PaginationProps {
-    page: number;
     totalPages: number;
-    itemsPerPage: number;
-    query: ParsedUrlQuery;
+    totalItems: number;
 }
 
-export default function Pagination({ page, totalPages, itemsPerPage, query }: PaginationProps) {
+export default function Pagination({ totalPages, totalItems }: PaginationProps) {
+    const { query } = useRouter();
+    const page = parseInt(getAsString(query.page)) || 1;
+
     return (
-        <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6 bottom-0">
+        <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
             <div className="flex-1 flex justify-between sm:hidden">
                 {page > 1 ? (
                     <PaginationLink page={page - 1} query={query}>
@@ -36,7 +39,7 @@ export default function Pagination({ page, totalPages, itemsPerPage, query }: Pa
                 )}
             </div>
             <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-                <ResultDetails page={page} itemsPerPage={itemsPerPage} totalPages={totalPages} />
+                <ResultDetails page={page} totalPages={totalPages} totalItems={totalItems} />
                 <div>
                     <nav className="relative z-0 inline-flex shadow-sm">
                         {page > 1 && (
@@ -107,20 +110,24 @@ function PaginationLink({ query, page, children }: PaginationLinkProps) {
 
 interface ResultDetailsProps {
     page: number;
-    itemsPerPage: number;
     totalPages: number;
+    totalItems: number;
 }
 
-function ResultDetails({ page, itemsPerPage, totalPages }: ResultDetailsProps) {
+function ResultDetails({ page, totalPages, totalItems }: ResultDetailsProps) {
+    const itemsPerPage = Math.ceil(totalItems / totalPages);
+    const first = (page - 1) * itemsPerPage + 1;
+    const last = page === totalPages ? totalItems : (page - 1) * itemsPerPage + itemsPerPage;
+
     return (
         <div>
             <p className="text-sm leading-5 text-gray-700">
                 Showing
-                <span className="font-medium mx-1">{(page - 1) * itemsPerPage + 1}</span>
+                <span className="font-medium mx-1">{first || 0}</span>
                 to
-                <span className="font-medium mx-1">{(page - 1) * itemsPerPage + itemsPerPage}</span>
+                <span className="font-medium mx-1">{last || 0}</span>
                 of
-                <span className="font-medium mx-1">{itemsPerPage * totalPages}</span>
+                <span className="font-medium mx-1">{totalItems}</span>
                 results
             </p>
         </div>

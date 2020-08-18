@@ -66,7 +66,8 @@ export async function getCars(query: ParsedUrlQuery) {
 
     const [cars, totalItemsArray] = await Promise.all([carsPromise, totalItemsPromise]);
 
-    const totalItems = totalItemsArray[0].count;
+    const totalItems = parseInt(totalItemsArray[0].count);
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
 
-    return { cars, totalPages: Math.ceil(totalItems / itemsPerPage) };
+    return { cars, totalPages, totalItems };
 }

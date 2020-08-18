@@ -1,4 +1,8 @@
-export function getAsString(value: string | string[]): string {
+export function getAsString(value: string | string[] | undefined): string {
+    if (value === undefined) {
+        return '';
+    }
+
     if (Array.isArray(value)) {
         return value[0];
     }

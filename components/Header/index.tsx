@@ -3,25 +3,18 @@ import { GiCarKey } from 'react-icons/gi';
 
 export default function Header() {
     return (
-        <nav className="flex items-center justify-between flex-wrap bg-teal-500 p-6">
-            <div className="flex items-center flex-shrink-0 text-white mr-6">
-                <span className="font-semibold text-4xl tracking-tight">
-                    <GiCarKey />
-                </span>
-            </div>
-            <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-                <div className="text-sm lg:flex-grow">
-                    <Link href="/">
-                        <a className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 text-xl hover:text-white mr-4">
-                            Home
-                        </a>
-                    </Link>
-                    <Link href="/faq">
-                        <a className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 text-xl hover:text-white mr-4">
-                            FAQ
-                        </a>
-                    </Link>
-                </div>
+        <nav className="bg-white px-8 pt-2 shadow-md">
+            <div className="-mb-px flex justify-center">
+                <Link href="/">
+                    <a className="no-underline text-gray-900 text-opacity-50 hover:text-opacity-100 border-b-4 border-transparent focus:border-blue-300 uppercase tracking-wide font-bold text-l py-3 mr-8">
+                        Home
+                    </a>
+                </Link>
+                <Link href="/faq">
+                    <a className="no-underline text-gray-900 text-opacity-50 hover:text-opacity-100 border-b-4 border-transparent focus:border-blue-300 uppercase tracking-wide font-bold text-l py-3 mr-8">
+                        Faq
+                    </a>
+                </Link>
             </div>
         </nav>
     );
