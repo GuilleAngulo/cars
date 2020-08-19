@@ -59,7 +59,7 @@ function PaginationMobile({ page, query, hasPrevious, hasNext }: PaginationProps
                     </a>
                 </PaginationLink>
             ) : (
-                <a className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white cursor-not-allowed">
+                <a className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white opacity-50">
                     Previous
                 </a>
             )}
@@ -70,7 +70,7 @@ function PaginationMobile({ page, query, hasPrevious, hasNext }: PaginationProps
                     </a>
                 </PaginationLink>
             ) : (
-                <a className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white cursor-not-allowed">
+                <a className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white opacity-50">
                     Next
                 </a>
             )}
@@ -81,7 +81,7 @@ function PaginationMobile({ page, query, hasPrevious, hasNext }: PaginationProps
 function PaginationNav({ page, query, totalPages, hasPrevious, hasNext }: PaginationProps) {
     return (
         <nav className="relative z-0 inline-flex shadow-sm">
-            {hasPrevious && (
+            {hasPrevious ? (
                 <PaginationLink page={page - 1} query={query}>
                     <a
                         className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150"
@@ -90,6 +90,13 @@ function PaginationNav({ page, query, totalPages, hasPrevious, hasNext }: Pagina
                         <PreviousPageSVG />
                     </a>
                 </PaginationLink>
+            ) : (
+                <a
+                    className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-500  opacity-50"
+                    aria-label="Previous"
+                >
+                    <PreviousPageSVG />
+                </a>
             )}
 
             {[...Array(totalPages)].map((_, i) => (
@@ -114,7 +121,7 @@ function PaginationNav({ page, query, totalPages, hasPrevious, hasNext }: Pagina
                 </PaginationLink>
             ) : (
                 <a
-                    className="-ml-px relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-500 text-gray-400"
+                    className="-ml-px relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-500 opacity-50"
                     aria-label="Next"
                 >
                     <NextPageSVG />

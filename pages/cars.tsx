@@ -23,11 +23,12 @@ export interface CarsListProps {
 export default function CarsList({ makes, models, cars, totalPages, totalItems }: CarsListProps) {
     const { query } = useRouter();
     const [serverQuery] = useState(query);
-    const { data, isValidating } = useSWR('api/cars?' + stringify(query), {
+    const { data, error, isValidating } = useSWR('api/cars?' + stringify(query), {
         dedupingInterval: 10000,
         initialData: deepEqual(query, serverQuery) ? { cars, totalPages, totalItems } : undefined,
     });
-    const hasResults = data?.cars?.length ? true : false;
+    const numberItems = data?.totalItems ?? 0;
+    const hasResults = numberItems > 0;
 
     return (
         <div className="flex flex-col h-screen justify-between">
@@ -36,14 +37,19 @@ export default function CarsList({ makes, models, cars, totalPages, totalItems }
                     <Search makes={makes} models={models} />
                 </div>
 
-                {!hasResults && <CarNotFound text={'No results found ...'} backButton={false} />}
+                {hasResults === false && (
+                    <div className="col-span-2">
+                        <CarNotFound text={'No results found ...'} backButton={false} />
+                    </div>
+                )}
 
                 <div className="grid grid-cols-1 justify-items-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4 m-5 px-2 col-span-2">
                     {(data?.cars || []).map((car) => (
-                        <CarItem key={car.id} car={car} />
+                        <CarItem key={car.id} car={car} error={error} isValidating={isValidating} />
                     ))}
                 </div>
             </div>
+
             {hasResults && (
                 <Pagination totalPages={data?.totalPages || 0} totalItems={data?.totalItems || 0} />
             )}
@@ -51,7 +57,7 @@ export default function CarsList({ makes, models, cars, totalPages, totalItems }
     );
 }
 
-export const getServerSideProps: GetServerSideProps<CarsListProps> = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
     const make = getAsString(context.query.make || '') || 'all';
 
     const [makes, models, pagination] = await Promise.all([

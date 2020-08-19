@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { GiCarKey } from 'react-icons/gi';
 
 export default function Header() {
     return (

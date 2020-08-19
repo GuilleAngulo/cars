@@ -9,7 +9,7 @@ export interface BackButtonProps {
 export default function BackButton({ text, pathName }: BackButtonProps) {
     return (
         <Link href={pathName}>
-            <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded inline-flex items-center my-5">
+            <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded inline-flex items-center justify-center my-5">
                 <span className="mr-2">
                     <FaArrowLeft />
                 </span>
