@@ -49,6 +49,35 @@ interface PaginationProps {
     hasNext: boolean;
 }
 
+function PaginationMobile({ page, query, hasPrevious, hasNext }: PaginationProps) {
+    return (
+        <div className="flex-1 flex justify-between sm:hidden">
+            {hasPrevious ? (
+                <PaginationLink page={page - 1} query={query}>
+                    <a className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
+                        Previous
+                    </a>
+                </PaginationLink>
+            ) : (
+                <a className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white cursor-not-allowed">
+                    Previous
+                </a>
+            )}
+            {hasNext ? (
+                <PaginationLink page={page + 1} query={query}>
+                    <a className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
+                        Next
+                    </a>
+                </PaginationLink>
+            ) : (
+                <a className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white cursor-not-allowed">
+                    Next
+                </a>
+            )}
+        </div>
+    );
+}
+
 function PaginationNav({ page, query, totalPages, hasPrevious, hasNext }: PaginationProps) {
     return (
         <nav className="relative z-0 inline-flex shadow-sm">
@@ -95,34 +124,29 @@ function PaginationNav({ page, query, totalPages, hasPrevious, hasNext }: Pagina
     );
 }
 
-function PaginationMobile({ page, query, hasPrevious, hasNext }: PaginationProps) {
+const NextPageSVG = () => {
     return (
-        <div className="flex-1 flex justify-between sm:hidden">
-            {hasPrevious ? (
-                <PaginationLink page={page - 1} query={query}>
-                    <a className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
-                        Previous
-                    </a>
-                </PaginationLink>
-            ) : (
-                <a className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white cursor-not-allowed">
-                    Previous
-                </a>
-            )}
-            {hasNext ? (
-                <PaginationLink page={page + 1} query={query}>
-                    <a className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
-                        Next
-                    </a>
-                </PaginationLink>
-            ) : (
-                <a className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white cursor-not-allowed">
-                    Next
-                </a>
-            )}
-        </div>
+        <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path
+                fillRule="evenodd"
+                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                clipRule="evenodd"
+            />
+        </svg>
     );
-}
+};
+
+const PreviousPageSVG = () => {
+    return (
+        <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path
+                fillRule="evenodd"
+                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                clipRule="evenodd"
+            />
+        </svg>
+    );
+};
 
 interface PaginationLinkProps {
     query: ParsedUrlQuery;
@@ -158,39 +182,23 @@ function ResultDetails({ page, totalPages, totalItems }: ResultDetailsProps) {
 
     return (
         <div>
-            <p className="text-sm leading-5 text-gray-700">
-                Showing
-                <span className="font-medium mx-1">{first || 0}</span>
-                to
-                <span className="font-medium mx-1">{last || 0}</span>
-                of
-                <span className="font-medium mx-1">{totalItems}</span>
-                results
-            </p>
+            {totalPages > 1 ? (
+                <p className="text-sm leading-5 text-gray-700">
+                    Showing
+                    <span className="font-medium mx-1">{first || 0}</span>
+                    to
+                    <span className="font-medium mx-1">{last || 0}</span>
+                    of
+                    <span className="font-medium mx-1">{totalItems}</span>
+                    results
+                </p>
+            ) : (
+                <p className="text-sm leading-5 text-gray-700">
+                    Showing
+                    <span className="font-medium mx-1">{totalItems || 0}</span>
+                    result{totalItems > 1 && 's'}
+                </p>
+            )}
         </div>
     );
 }
-
-const NextPageSVG = () => {
-    return (
-        <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-            <path
-                fillRule="evenodd"
-                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                clipRule="evenodd"
-            />
-        </svg>
-    );
-};
-
-const PreviousPageSVG = () => {
-    return (
-        <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-            <path
-                fillRule="evenodd"
-                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                clipRule="evenodd"
-            />
-        </svg>
-    );
-};

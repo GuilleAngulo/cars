@@ -23,11 +23,12 @@ export interface CarsListProps {
 export default function CarsList({ makes, models, cars, totalPages, totalItems }: CarsListProps) {
     const { query } = useRouter();
     const [serverQuery] = useState(query);
-    const [loading, setLoaging] = useState(false);
-    const { data } = useSWR('api/cars?' + stringify(query), {
+    const [loading, setLoading] = useState(false);
+    const { data, isValidating } = useSWR('api/cars?' + stringify(query), {
         dedupingInterval: 10000,
         initialData: deepEqual(query, serverQuery) ? { cars, totalPages, totalItems } : undefined,
     });
+    const hasResults = data?.cars?.length ? true : false;
 
     return (
         <div className="flex flex-col h-screen justify-between">
@@ -36,9 +37,7 @@ export default function CarsList({ makes, models, cars, totalPages, totalItems }
                     <Search makes={makes} models={models} />
                 </div>
 
-                {!data?.cars.length && (
-                    <CarNotFound text={'Cars not found ...'} backButton={true} />
-                )}
+                {!hasResults && <CarNotFound text={'No results found ...'} backButton={false} />}
 
                 <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4 m-5 col-span-2">
                     {(data?.cars || []).map((car) => (
@@ -46,8 +45,9 @@ export default function CarsList({ makes, models, cars, totalPages, totalItems }
                     ))}
                 </div>
             </div>
-
-            <Pagination totalPages={data?.totalPages || 0} totalItems={data?.totalItems || 0} />
+            {hasResults && (
+                <Pagination totalPages={data?.totalPages || 0} totalItems={data?.totalItems || 0} />
+            )}
         </div>
     );
 }

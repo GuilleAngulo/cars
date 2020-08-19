@@ -2,14 +2,14 @@ import BackButton from 'components/BackButton';
 
 export interface CarNotFoundProps {
     text: string;
-    backButton: boolean;
+    backButton?: boolean;
     buttonText?: string;
     buttonPath?: string;
 }
 
 export default function CarNotFound({
     text,
-    backButton,
+    backButton = true,
     buttonText = 'Back',
     buttonPath = '/cars',
 }: CarNotFoundProps) {
