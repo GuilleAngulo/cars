@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next';
 import { CarModel } from 'database/models/Car';
-import { FaRoute, FaGasPump, FaCalendarAlt, FaArrowLeft } from 'react-icons/fa';
+import { FaRoute, FaGasPump, FaCalendarAlt } from 'react-icons/fa';
 import { getCarById } from 'database/api/car';
 import Head from 'next/head';
 import CarNotFound from 'components/CarNotFound';
@@ -28,7 +28,7 @@ export default function CarDetails({ car }: CarDetailsProps) {
                     ></div>
                     <div className="bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
                         <div className="mb-4">
-                            <div className="text-gray-900 font-bold text-3xl mb-2">{`${car?.make} ${car.model}`}</div>
+                            <div className="text-gray-900 font-bold text-3xl mb-2">{`${car?.make} ${car?.model}`}</div>
                             <span className="text-gray-900 rounded-t-lg font-bold text-xl bg-gray-500 bg-opacity-25 px-1 py-1 mb-2">
                                 R$ {car?.price}
                             </span>
