@@ -11,8 +11,7 @@ import { stringify } from 'querystring'; //Object to query string
 import { useState } from 'react';
 import deepEqual from 'fast-deep-equal';
 import CarNotFound from 'components/CarNotFound';
-
-export interface CarsListProps {
+export interface CarsProps {
     makes: MakeSelect[];
     models: ModelSelect[];
     cars: CarModel[];
@@ -20,13 +19,14 @@ export interface CarsListProps {
     totalItems: number;
 }
 
-export default function CarsList({ makes, models, cars, totalPages, totalItems }: CarsListProps) {
+export default function Cars({ makes, models, cars, totalPages, totalItems }: CarsProps) {
     const { query } = useRouter();
     const [serverQuery] = useState(query);
     const { data, error, isValidating } = useSWR('api/cars?' + stringify(query), {
-        dedupingInterval: 10000,
+        dedupingInterval: 20000,
         initialData: deepEqual(query, serverQuery) ? { cars, totalPages, totalItems } : undefined,
     });
+
     const numberItems = data?.totalItems ?? 0;
     const hasResults = numberItems > 0;
 
@@ -37,16 +37,22 @@ export default function CarsList({ makes, models, cars, totalPages, totalItems }
                     <Search makes={makes} models={models} />
                 </div>
 
-                {hasResults === false && (
-                    <div className="col-span-2">
+                <div className="col-span-2">
+                    {hasResults === true && (
+                        <div className="grid grid-cols-1 justify-items-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4 m-5 px-2">
+                            {(data?.cars || []).map((car) => (
+                                <CarItem
+                                    key={car.id}
+                                    car={car}
+                                    error={error}
+                                    isValidating={isValidating}
+                                />
+                            ))}
+                        </div>
+                    )}
+                    {hasResults === false && (
                         <CarNotFound text={'No results found ...'} backButton={false} />
-                    </div>
-                )}
-
-                <div className="grid grid-cols-1 justify-items-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4 m-5 px-2 col-span-2">
-                    {(data?.cars || []).map((car) => (
-                        <CarItem key={car.id} car={car} error={error} isValidating={isValidating} />
-                    ))}
+                    )}
                 </div>
             </div>
 
@@ -58,7 +64,7 @@ export default function CarsList({ makes, models, cars, totalPages, totalItems }
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const make = getAsString(context.query.make || '') || 'all';
+    const make = getAsString(context.query?.make) || 'all';
 
     const [makes, models, pagination] = await Promise.all([
         getMakes(),

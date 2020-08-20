@@ -8,8 +8,8 @@ import Spinner from 'components/Spinner';
 //const isServer = typeof window === 'undefined';
 export interface CarItemProps {
     car: CarModel;
-    error: boolean;
-    isValidating: boolean;
+    error?: boolean;
+    isValidating?: boolean;
 }
 
 export default function CarItem({ car, error, isValidating }: CarItemProps) {
@@ -24,10 +24,10 @@ export default function CarItem({ car, error, isValidating }: CarItemProps) {
                     />
                 </div>
                 <div className="px-6 py-4 overflow-hidden relative">
-                    <div className="absolute right-0 pt-1">
+                    <div className="absolute flex right-0 pt-1">
                         {error && (
                             <div className="pr-4">
-                                <FiAlertTriangle />
+                                <FiAlertTriangle width={55} />
                             </div>
                         )}
                         {isValidating && (

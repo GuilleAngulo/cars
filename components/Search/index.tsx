@@ -1,9 +1,10 @@
 import { ModelSelect, MakeSelect } from 'database/models/Car';
-import { Formik, Form, Field, useField } from 'formik';
+import { Formik, Form, Field, useField, useFormikContext } from 'formik';
 import router, { useRouter } from 'next/router';
 import { getAsString } from 'utils';
 import useSWR from 'swr';
 import { FaSearch } from 'react-icons/fa';
+import { useEffect, useState } from 'react';
 export interface SearchProps {
     makes: MakeSelect[];
     models: ModelSelect[];
@@ -14,17 +15,18 @@ const prices = [10000, 50000, 150000, 250000, 500000, 1000000];
 export default function Search({ makes, models }: SearchProps) {
     const { query } = useRouter();
 
-    const initialValues = {
-        make: getAsString(query.make || '') || 'all',
-        model: getAsString(query.model || '') || 'all',
-        minPrice: getAsString(query.minPrice || '') || 'all',
-        maxPrice: getAsString(query.maxPrice || '') || 'all',
-    };
+    const [initialValues] = useState({
+        make: getAsString(query.make) || 'all',
+        model: getAsString(query.model) || 'all',
+        minPrice: getAsString(query.minPrice) || 'all',
+        maxPrice: getAsString(query.maxPrice) || 'all',
+    });
 
     return (
         <Formik
             initialValues={initialValues}
             onSubmit={(values) => {
+                console.log(values);
                 router.push(
                     {
                         pathname: '/cars',
@@ -71,7 +73,12 @@ export default function Search({ makes, models }: SearchProps) {
                                 </div>
                             </div>
                         </div>
-                        <ModelSelector make={values.make} name="model" models={models} />
+                        <ModelSelector
+                            initialMake={initialValues.make}
+                            make={values.make}
+                            name="model"
+                            models={models}
+                        />
                         <div className="text-center w-full px-3 mb-6 md:mb-0 my-2">
                             <label
                                 id="search-min-price"
@@ -166,19 +173,29 @@ export interface ModelSelectProps {
     name: string;
     models: ModelSelect[];
     make: string;
+    initialMake: string;
 }
 
-export function ModelSelector({ models, make, ...props }: ModelSelectProps) {
+export function ModelSelector({ initialMake, models, make, ...props }: ModelSelectProps) {
+    const { setFieldValue } = useFormikContext();
+
     const [field] = useField({
         name: props.name,
     });
 
-    const { data } = useSWR<MakeSelect[]>('/api/models?make=' + make, {
+    const initialModelsOrUndefined = make === initialMake ? models : undefined;
+
+    const { data: newModels } = useSWR<ModelSelect[]>('/api/models?make=' + make, {
         //Dedupe requests with the same key in this time span
         dedupingInterval: 60000,
+        initialData: make === 'all' ? [] : initialModelsOrUndefined,
     });
 
-    const newModels = data || models;
+    useEffect(() => {
+        if (!newModels?.map((a) => a.name).includes(field.value)) {
+            setFieldValue('model', 'all');
+        }
+    }, [make, newModels]);
 
     return (
         <div className="text-center w-full px-3 mb-6 md:mb-0 my-2">
@@ -196,7 +213,7 @@ export function ModelSelector({ models, make, ...props }: ModelSelectProps) {
                     {...props}
                 >
                     <option className="italic" value="all" label="All Models" />
-                    {newModels.map((model, index) => (
+                    {newModels?.map((model, index) => (
                         <option
                             key={index}
                             value={model.name}
