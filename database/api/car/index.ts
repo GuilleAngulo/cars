@@ -67,6 +67,7 @@ export async function getCars(query: ParsedUrlQuery) {
     const [cars, totalItemsArray] = await Promise.all([carsPromise, totalItemsPromise]);
 
     if (cars instanceof Error || totalItemsArray instanceof Error) {
+        console.error('Error retrieving the cars');
         throw Error;
     }
 

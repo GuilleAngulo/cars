@@ -11,6 +11,8 @@ import { stringify } from 'querystring'; //Object to query string
 import { useState } from 'react';
 import deepEqual from 'fast-deep-equal';
 import CarNotFound from 'components/CarNotFound';
+//import CarLoadingList from 'components/CarLoadingList';
+
 export interface CarsProps {
     makes: MakeSelect[];
     models: ModelSelect[];
@@ -27,8 +29,10 @@ export default function Cars({ makes, models, cars, totalPages, totalItems }: Ca
         initialData: deepEqual(query, serverQuery) ? { cars, totalPages, totalItems } : undefined,
     });
 
-    const numberItems = data?.totalItems ?? 0;
-    const hasResults = numberItems > 0;
+    const numberItems = data?.cars.length ?? 0;
+    const resultsUndefined = typeof data?.cars.length === 'undefined' ? true : false;
+    const hasResults = !resultsUndefined && numberItems > 0 ? true : false;
+    const noResults = !resultsUndefined && numberItems === 0 ? true : false;
 
     return (
         <div className="flex flex-col h-screen justify-between">
@@ -38,7 +42,7 @@ export default function Cars({ makes, models, cars, totalPages, totalItems }: Ca
                 </div>
 
                 <div className="col-span-2">
-                    {hasResults === true && (
+                    {hasResults && (
                         <div className="grid grid-cols-1 justify-items-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4 m-5 px-2">
                             {(data?.cars || []).map((car) => (
                                 <CarItem
@@ -50,9 +54,12 @@ export default function Cars({ makes, models, cars, totalPages, totalItems }: Ca
                             ))}
                         </div>
                     )}
-                    {hasResults === false && (
-                        <CarNotFound text={'No results found ...'} backButton={false} />
-                    )}
+                    {/*resultsUndefined && (
+                        <div className="grid grid-cols-1 justify-items-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4 m-5 px-2">
+                            <CarLoadingList count={cars.length} />
+                        </div>
+                    )*/}
+                    {noResults && <CarNotFound text={'No results found ...'} backButton={false} />}
                 </div>
             </div>
 

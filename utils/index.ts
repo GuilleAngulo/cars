@@ -20,3 +20,7 @@ export function getValueString(value: string | string[]) {
     const str = getAsString(value);
     return !str || str.toLowerCase() === 'all' ? null : str;
 }
+
+export function sleep(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+}
