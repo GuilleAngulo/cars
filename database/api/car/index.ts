@@ -49,7 +49,11 @@ export async function getCars(query: ParsedUrlQuery) {
         .limit(itemsPerPage)
         .offset(offset);
 
-    const totalItemsPromise = db<{ count: number }>('cars')
+    interface totalItems {
+        count?: number;
+    }
+
+    const totalItemsPromise = db<totalItems>('cars')
         .count('model', { as: 'count' })
         .where(function () {
             if (make) this.where('make', make);
@@ -71,7 +75,7 @@ export async function getCars(query: ParsedUrlQuery) {
         throw Error;
     }
 
-    const totalItems = parseInt(totalItemsArray[0]?.count);
+    const totalItems = totalItemsArray[0]['count'] as number;
     const totalPages = Math.ceil(totalItems / itemsPerPage);
 
     return { cars, totalPages, totalItems };
