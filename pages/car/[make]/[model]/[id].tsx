@@ -63,7 +63,7 @@ export default function CarDetails({ car }: CarDetailsProps) {
 
 export const getServerSideProps: GetServerSideProps<CarDetailsProps> = async (context) => {
     const make = getAsString(context.params?.make);
-    const model = getAsString(context.params?.model);
+    const model = getAsString(context.params?.model).split('-').join(' ');
     const id = context.params?.id;
 
     try {

@@ -24,3 +24,7 @@ export function getValueString(value: string | string[]) {
 export function sleep(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
+
+export function capitalize(str: string): string {
+    return str.replace(/\w\S*/g, (w) => w.replace(/^\w/, (c) => c.toUpperCase()));
+}

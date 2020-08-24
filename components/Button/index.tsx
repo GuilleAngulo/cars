@@ -25,19 +25,17 @@ export default function Button({ classType, text, pathName, ...props }: ButtonPr
             );
         case 'back':
             return (
-                <button
-                    className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded inline-flex items-center justify-center my-5"
-                    style={{ ...props }}
-                >
-                    <Link href={pathName || '/cars'}>
-                        <a>
-                            <span className="mr-2">
-                                <FaArrowLeft />
-                            </span>
-                            {text || 'Back'}
-                        </a>
-                    </Link>
-                </button>
+                <Link href={pathName || '/cars'}>
+                    <button
+                        className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded inline-flex items-center justify-center my-5"
+                        style={{ ...props }}
+                    >
+                        <span className="mr-2">
+                            <FaArrowLeft />
+                        </span>
+                        {text || 'Back'}
+                    </button>
+                </Link>
             );
 
         default:

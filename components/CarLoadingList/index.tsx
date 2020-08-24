@@ -15,7 +15,7 @@ export default function CarLoadingList({ count }: CarLoadingListProps) {
 export function CarItemLoading() {
     return (
         <div className="border border-gray-300 shadow-lg rounded-md max-w-sm w-full">
-            <div className="animate-pulse h-full">
+            <div className="animate-pulse animate-fade-in h-full">
                 <div className="rounded relative pb-2/3">
                     <div className="absolute rounded bg-gray-400 w-full h-full"></div>
                 </div>

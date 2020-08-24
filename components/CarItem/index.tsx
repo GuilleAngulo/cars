@@ -11,9 +11,10 @@ export interface CarItemProps {
 }
 
 export default function CarItem({ car, error, isValidating }: CarItemProps) {
+    const normalizedUri = `/car/${car.make}/${car.model.split(' ').join('-')}/${car.id}`;
     return (
-        <Link href="/car/[make]/[model]/[id]" as={`/car/${car.make}/${car.model}/${car.id}`}>
-            <a>
+        <Link href="/car/[make]/[model]/[id]" as={normalizedUri}>
+            <a className="animate-fade-in">
                 <div className="max-w-sm rounded overflow-hidden shadow-lg h-full cursor-pointer">
                     <div className="relative pb-2/3">
                         <img
