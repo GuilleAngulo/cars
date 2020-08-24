@@ -11,7 +11,7 @@ import { stringify } from 'querystring'; //Object to query string
 import { useState } from 'react';
 import deepEqual from 'fast-deep-equal';
 import CarNotFound from 'components/CarNotFound';
-//import CarLoadingList from 'components/CarLoadingList';
+import CarLoadingList from 'components/CarLoadingList';
 
 export interface CarsProps {
     makes: MakeSelect[];
@@ -54,11 +54,11 @@ export default function Cars({ makes, models, cars, totalPages, totalItems }: Ca
                             ))}
                         </div>
                     )}
-                    {/*resultsUndefined && (
+                    {resultsUndefined && (
                         <div className="grid grid-cols-1 justify-items-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4 m-5 px-2">
                             <CarLoadingList count={cars.length} />
                         </div>
-                    )*/}
+                    )}
                     {noResults && <CarNotFound text={'No results found ...'} backButton={false} />}
                 </div>
             </div>
