@@ -42,7 +42,7 @@ export default function Cars({ makes, models, cars, totalPages, totalItems }: Ca
                 </div>
 
                 <div className="col-span-2">
-                    {!hasResults && (
+                    {hasResults && (
                         <div className="grid grid-cols-1 justify-items-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4 m-5 px-2">
                             {(data?.cars || []).map((car) => (
                                 <CarItem
@@ -54,7 +54,7 @@ export default function Cars({ makes, models, cars, totalPages, totalItems }: Ca
                             ))}
                         </div>
                     )}
-                    {!resultsUndefined && (
+                    {resultsUndefined && (
                         <div className="grid grid-cols-1 justify-items-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4 m-5 px-2">
                             <CarLoadingList count={cars.length} />
                         </div>
