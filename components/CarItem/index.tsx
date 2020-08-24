@@ -42,7 +42,13 @@ export default function CarItem({ car, error, isValidating }: CarItemProps) {
                         <div className="font-bold text-xl mb-2">
                             <h1>{`${car.make} ${car.model} (${car.year})`}</h1>
                         </div>
-                        <div className="font-bold text-l text-gray-800 mb-2">R$ {car.price}</div>
+                        <div className="font-bold text-l text-gray-800 mb-2">
+                            {new Intl.NumberFormat('pt-BR', {
+                                style: 'currency',
+                                currency: 'BRL',
+                                minimumFractionDigits: 0,
+                            }).format(car.price)}
+                        </div>
                         <p className="block text-gray-700 text-base line-clamp">{car.details}</p>
                     </div>
                 </div>

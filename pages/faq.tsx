@@ -8,20 +8,27 @@ interface FaqProps {
 
 export default function Faq({ faq }: FaqProps) {
     return (
-        <div className="bg-gray-200 p-4">
-            {faq.map((item) => {
-                return (
-                    <div key={item.id}>
-                        <span className="block text-gray-700 text-center rounded-lg bg-gray-400 px-4 py-2">
-                            {item.question}
-                        </span>
-                        <span className="block text-gray-700 text-center rounded-lg bg-green-200 px-4 py-2">
-                            {item.answer}
-                        </span>
-                    </div>
-                );
-            })}
-        </div>
+        <>
+            <div className="text-3xl text-center font-bold mt-20">
+                <h1>Have any questions ?</h1>
+            </div>
+            <div className="m-24">
+                <div className="grid grid-cols-2 gap-12">
+                    {faq.map((item) => {
+                        return (
+                            <div key={item.id}>
+                                <div>
+                                    <span className="text-xl font-bold">{item.question}</span>
+                                </div>
+                                <div className="mt-2">
+                                    <span className="text-l">{item.answer}</span>
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+            </div>
+        </>
     );
 }
 

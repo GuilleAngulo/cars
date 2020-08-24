@@ -19,7 +19,7 @@ export default function CarDetails({ car }: CarDetailsProps) {
                 <title>{`${car?.make} ${car?.model} (${car?.year})`}</title>
             </Head>
 
-            <div className="container mx-auto m-20 shadow-2xl rounded-md">
+            <div className="container mx-auto mt-10 shadow-2xl rounded-md">
                 <div className="lg:flex">
                     <div className="w-full md:flex-shrink-0 w-2/3 lg:w-2/3 md:w-full sm:w-full">
                         <img
@@ -33,8 +33,13 @@ export default function CarDetails({ car }: CarDetailsProps) {
                             <h1>{`${car?.make} ${car?.model}`}</h1>
                         </div>
                         <span className="text-gray-900 rounded-t-lg font-bold text-xl bg-gray-500 bg-opacity-25 px-1 py-1 mb-2">
-                            <span className="text-l">R$</span>{' '}
-                            <span className="text-xl">{car?.price}</span>
+                            <span className="text-xl">
+                                {new Intl.NumberFormat('pt-BR', {
+                                    style: 'currency',
+                                    currency: 'BRL',
+                                    minimumFractionDigits: 0,
+                                }).format(car?.price || 0)}
+                            </span>
                         </span>
 
                         <p className="mt-1 text-gray-600">{car?.details}</p>
