@@ -84,7 +84,7 @@ function PaginationNav({ page, query, totalPages, hasPrevious, hasNext }: Pagina
             {hasPrevious ? (
                 <PaginationLink page={page - 1} query={query}>
                     <a
-                        className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150"
+                        className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-400 transition ease-in-out duration-150"
                         aria-label="Previous"
                     >
                         <PreviousPageSVG />
@@ -103,7 +103,9 @@ function PaginationNav({ page, query, totalPages, hasPrevious, hasNext }: Pagina
                 <PaginationLink page={i + 1} query={query} key={i}>
                     <a
                         key={i}
-                        className="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 active:border-blue-300 active:shadow-outline-blue transition ease-in-out duration-150"
+                        className={`-ml-px relative inline-flex items-center px-4 py-2 border-t-2 border-b-2 border-l-2 border-gray-300 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 active:border-blue-300 active:shadow-outline-blue transition ease-in-out duration-150 ${
+                            page === i + 1 ? 'border-blue-300 border-r-2' : ''
+                        }`}
                     >
                         {i + 1}
                     </a>
@@ -113,7 +115,7 @@ function PaginationNav({ page, query, totalPages, hasPrevious, hasNext }: Pagina
             {hasNext ? (
                 <PaginationLink page={page + 1} query={query}>
                     <a
-                        className="-ml-px relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150"
+                        className="-ml-px relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-400 border-r-2 border-transparent transition ease-in-out duration-150"
                         aria-label="Next"
                     >
                         <NextPageSVG />

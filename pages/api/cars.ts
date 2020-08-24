@@ -1,6 +1,5 @@
 import { NextApiResponse, NextApiRequest } from 'next';
 import { getCars } from 'database/api/car';
-import { sleep } from 'utils';
 
 export default async function cars(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'GET') {

@@ -3,8 +3,8 @@ import { Formik, Form, Field, useField, useFormikContext } from 'formik';
 import router, { useRouter } from 'next/router';
 import { getAsString } from 'utils';
 import useSWR from 'swr';
-import { FaSearch } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
+import Button from 'components/Button';
 export interface SearchProps {
     makes: MakeSelect[];
     models: ModelSelect[];
@@ -153,15 +153,7 @@ export default function Search({ makes, models }: SearchProps) {
                         </div>
                     </div>
                     <div className="px-5 py-5">
-                        <button
-                            type="submit"
-                            className="bg-transparent w-full hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded inline-flex items-center justify-center my-5"
-                        >
-                            <span className="mr-2">
-                                <FaSearch />
-                            </span>
-                            Search
-                        </button>
+                        <Button classType={'search'} width="100%" />
                     </div>
                 </Form>
             )}

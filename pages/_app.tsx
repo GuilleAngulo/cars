@@ -10,18 +10,19 @@ import 'nprogress/nprogress.css';
 
 NProgress.configure({ showSpinner: false });
 
-Router.events.on('routeChangeStart', () => {
-    console.log('route change start');
+Router.events.on('routeChangeStart', (url) => {
+    console.log('route change start: ' + url);
     NProgress.start();
 });
 
-Router.events.on('routeChangeComplete', () => {
-    console.log('route change complete');
+Router.events.on('routeChangeComplete', (url) => {
+    console.log('route change complete: ' + url);
     NProgress.done();
 });
 
-Router.events.on('routeChangeError', () => {
-    console.log('route change error');
+Router.events.on('routeChangeError', (err, url) => {
+    console.log('route change error: ' + url);
+    console.log('Error: ' + err);
     NProgress.done();
 });
 

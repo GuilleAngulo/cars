@@ -1,4 +1,4 @@
-import BackButton from 'components/BackButton';
+import Button from 'components/Button';
 
 export interface CarNotFoundProps {
     text: string;
@@ -7,12 +7,7 @@ export interface CarNotFoundProps {
     buttonPath?: string;
 }
 
-export default function CarNotFound({
-    text,
-    backButton = true,
-    buttonText = 'Back',
-    buttonPath = '/cars',
-}: CarNotFoundProps) {
+export default function CarNotFound({ text, backButton = true }: CarNotFoundProps) {
     return (
         <div className="flex justify-center">
             <div className="w-full text-center m-20">
@@ -22,7 +17,7 @@ export default function CarNotFound({
                 <div className="flex justify-center">
                     <img src="/car-not-found.png" alt={text} width="450px" />
                 </div>
-                {backButton && <BackButton text={buttonText} pathName={buttonPath} />}
+                {backButton && <Button classType={'back'} />}
             </div>
         </div>
     );
