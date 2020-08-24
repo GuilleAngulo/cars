@@ -61,19 +61,30 @@ export default function CarDetails({ car }: CarDetailsProps) {
     );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps<CarDetailsProps> = async (context) => {
     const make = getAsString(context.params?.make);
     const model = getAsString(context.params?.model);
     const id = context.params?.id;
 
-    const [makes, models, car] = await Promise.all([getMakes(), getModels(make), getCarById(id)]);
+    try {
+        const [makes, models, car] = await Promise.all([
+            getMakes(),
+            getModels(make),
+            getCarById(id),
+        ]);
 
-    const isMakeValid = makes.map((make) => make.name.toLowerCase()).includes(make.toLowerCase());
-    const isModelValid = models
-        .map((model) => model.name.toLowerCase())
-        .includes(model.toLowerCase());
-    const isCarValid = car.make === make && car.model === model;
+        const isMakeValid = makes
+            .map((make) => make.name.toLowerCase())
+            .includes(make.toLowerCase());
+        const isModelValid = models
+            .map((model) => model.name.toLowerCase())
+            .includes(model.toLowerCase());
+        const isCarValid = car.make === make && car.model === model;
 
-    if (isMakeValid && isModelValid && isCarValid) return { props: { car } };
+        if (isMakeValid && isModelValid && isCarValid) return { props: { car } };
+    } catch (err) {
+        console.log(err);
+    }
+
     return { props: { car: null } };
 };

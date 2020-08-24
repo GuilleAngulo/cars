@@ -12,7 +12,7 @@ export interface CarItemProps {
 
 export default function CarItem({ car, error, isValidating }: CarItemProps) {
     return (
-        <Link href="/car/[make]/[brand]/[id]" as={`/car/${car.make}/${car.model}/${car.id}`}>
+        <Link href="/car/[make]/[model]/[id]" as={`/car/${car.make}/${car.model}/${car.id}`}>
             <a>
                 <div className="max-w-sm rounded overflow-hidden shadow-lg h-full cursor-pointer">
                     <div className="relative pb-2/3">
