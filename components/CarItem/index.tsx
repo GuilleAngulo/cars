@@ -27,7 +27,7 @@ export default function CarItem({ car, error, isValidating }: CarItemProps) {
                         <div className="absolute flex right-0 pt-1">
                             {error && (
                                 <div className="pr-4">
-                                    <FiAlertTriangle width={60} />
+                                    <FiAlertTriangle size={22} />
                                 </div>
                             )}
                             {isValidating && (

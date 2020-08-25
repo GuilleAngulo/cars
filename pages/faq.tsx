@@ -13,7 +13,7 @@ export default function Faq({ faq }: FaqProps) {
                 <h1>Have any questions ?</h1>
             </div>
             <div className="m-24">
-                <div className="grid grid-cols-2 gap-12">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                     {faq.map((item) => {
                         return (
                             <div key={item.id}>
