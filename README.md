@@ -1,4 +1,4 @@
-## Under Construction 🚧
+## In development
 
-You can check an early version here: [https://cars-eight.vercel.app/](https://cars-eight.vercel.app/)
+You can check my progress here: [https://cars-eight.vercel.app/](https://cars-eight.vercel.app/)
 
