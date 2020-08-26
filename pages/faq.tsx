@@ -1,6 +1,7 @@
 import { GetStaticProps } from 'next';
 import { FaqModel } from 'database/models/Faq';
 import db from 'database/connection';
+import SEO from 'components/SEO';
 
 interface FaqProps {
     faq: FaqModel[];
@@ -9,6 +10,11 @@ interface FaqProps {
 export default function Faq({ faq }: FaqProps) {
     return (
         <>
+            <SEO
+                title={'FAQ'}
+                description={'Got any questions? Check our Frequently Ask Questions'}
+                canonicalPath={`/faq`}
+            />
             <div className="text-3xl text-center font-bold mt-20">
                 <h1>Have any questions ?</h1>
             </div>

@@ -2,9 +2,9 @@ import { GetServerSideProps } from 'next';
 import { CarModel } from 'database/models/Car';
 import { FaRoute, FaGasPump, FaCalendarAlt } from 'react-icons/fa';
 import { getCarById, getMakes, getModels } from 'database/api/car';
-import Head from 'next/head';
 import CarNotFound from 'components/CarNotFound';
 import { getAsString } from 'utils';
+import SEO from 'components/SEO';
 
 interface CarDetailsProps {
     car: CarModel | null | undefined;
@@ -15,9 +15,12 @@ export default function CarDetails({ car }: CarDetailsProps) {
 
     return (
         <>
-            <Head>
-                <title>{`${car?.make} ${car?.model} (${car?.year})`}</title>
-            </Head>
+            <SEO
+                title={`${car?.make} ${car?.model} (${car?.year})`}
+                description={`${car?.make} ${car?.model} used from ${car?.year} with ${car?.kilometers} for sale near you. For more information and car pricing contact us.`}
+                canonicalPath={`/car/${car?.make}/${car?.model}/${car?.id}`}
+                image={car?.photoUrl}
+            />
 
             <div className="container mx-auto mt-10 shadow-2xl rounded-md">
                 <div className="lg:flex">

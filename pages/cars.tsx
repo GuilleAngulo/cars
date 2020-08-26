@@ -12,6 +12,7 @@ import { useState } from 'react';
 import deepEqual from 'fast-deep-equal';
 import CarNotFound from 'components/CarNotFound';
 import CarLoadingList from 'components/CarLoadingList';
+import SEO from 'components/SEO';
 
 //const isServer = typeof window === 'undefined';
 
@@ -37,38 +38,51 @@ export default function Cars({ makes, models, cars, totalPages, totalItems }: Ca
     const noResults = !resultsUndefined && numberItems === 0 ? true : false;
 
     return (
-        <div className="flex flex-col h-screen justify-between">
-            <div className="grid justify-center grid-cols-1 lg:grid-cols-3 xl:grid-cols-3">
-                <div className="grid-cols-1 self-start justify-items-center mt-5 mx-12 px-4 py-1 rounded shadow-lg col-span-1">
-                    <Search makes={makes} models={models} />
+        <>
+            <SEO title={'Search'} />
+            <SEO
+                title={'Search'}
+                description={`Search for used cars in your area.`}
+                canonicalPath={`/cars`}
+            />
+            <div className="flex flex-col h-screen justify-between">
+                <div className="grid justify-center grid-cols-1 lg:grid-cols-3 xl:grid-cols-3">
+                    <div className="grid-cols-1 self-start justify-items-center mt-5 mx-12 px-4 py-1 rounded shadow-lg col-span-1">
+                        <Search makes={makes} models={models} />
+                    </div>
+
+                    <div className="col-span-2">
+                        {hasResults && (
+                            <div className="grid grid-cols-1 justify-items-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4 m-5 px-2">
+                                {(data?.cars || []).map((car) => (
+                                    <CarItem
+                                        key={car.id}
+                                        car={car}
+                                        error={error}
+                                        isValidating={isValidating}
+                                    />
+                                ))}
+                            </div>
+                        )}
+                        {resultsUndefined && (
+                            <div className="grid grid-cols-1 justify-items-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4 m-5 px-2">
+                                <CarLoadingList count={4} /**count={cars.length}**/ />
+                            </div>
+                        )}
+                        {noResults && (
+                            <CarNotFound text={'No results found ...'} backButton={false} />
+                        )}
+                    </div>
                 </div>
 
-                <div className="col-span-2">
-                    {hasResults && (
-                        <div className="grid grid-cols-1 justify-items-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4 m-5 px-2">
-                            {(data?.cars || []).map((car) => (
-                                <CarItem
-                                    key={car.id}
-                                    car={car}
-                                    error={error}
-                                    isValidating={isValidating}
-                                />
-                            ))}
-                        </div>
-                    )}
-                    {resultsUndefined && (
-                        <div className="grid grid-cols-1 justify-items-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4 m-5 px-2">
-                            <CarLoadingList count={4} /**count={cars.length}**/ />
-                        </div>
-                    )}
-                    {noResults && <CarNotFound text={'No results found ...'} backButton={false} />}
-                </div>
+                {hasResults && (
+                    <Pagination
+                        totalPages={data?.totalPages || 0}
+                        totalItems={data?.totalItems || 0}
+                    />
+                )}
             </div>
-
-            {hasResults && (
-                <Pagination totalPages={data?.totalPages || 0} totalItems={data?.totalItems || 0} />
-            )}
-        </div>
+        </>
     );
 }
 
