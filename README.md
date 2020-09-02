@@ -5,3 +5,5 @@ I´m developing this Car selling app in order to learn the NextJS framework. I´
 
 You can check my progress here: [https://cars-eight.vercel.app/](https://cars-eight.vercel.app/)
 
+<img src="https://github.com/GuilleAngulo/cars/blob/master/public/cars-screenshot.png" width="800">
+
