@@ -12,17 +12,17 @@ import 'nprogress/nprogress.css';
 NProgress.configure({ showSpinner: false });
 
 Router.events.on('routeChangeStart', (url) => {
-    //console.log('route change start at ' + url);
+    console.log('route change start at ' + url);
     NProgress.start();
 });
 
 Router.events.on('routeChangeComplete', (url) => {
-    //console.log('route change complete at ' + url);
+    console.log('route change complete at ' + url);
     NProgress.done();
 });
 
 Router.events.on('routeChangeError', (err, url) => {
-    //console.log('route change error at ' + url + '. ' + err);
+    console.log('route change error at ' + url + '. ' + err);
     NProgress.done();
 });
 

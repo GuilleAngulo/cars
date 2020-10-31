@@ -7,11 +7,23 @@
     "build": "next build",
     "start": "next start",
     "knex:migrate": "knex migrate:latest --knexfile knexfile.ts",
-    "knex:migrate:rollback": "knex migrate:rollback --knexfile knexfile.ts" ,
+    "knex:migrate:rollback": "knex migrate:rollback --knexfile knexfile.ts",
     "knex:seed": "knex seed:run --knexfile knexfile.ts",
     "analyze": "cross-env ANALYZE=true next build",
     "analyze:server": "cross-env BUNDLE_ANALYZE=server next build",
-    "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build"
+    "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build",
+    "lint": "eslint src --max-warnings=0",
+    "typecheck": "tsc --project tsconfig.json --noEmit"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*": [
+      "yarn lint --fix"
+    ]
   },
   "dependencies": {
     "@next/bundle-analyzer": "^9.5.2",
@@ -48,6 +60,8 @@
     "eslint-plugin-react-hooks": "^4.0.8",
     "eslint-plugin-standard": "^4.0.1",
     "eslint-plugin-tailwind": "^0.2.0",
+    "husky": "^4.3.0",
+    "lint-staged": "^10.5.1",
     "postcss-preset-env": "^6.7.0",
     "prettier": "^2.0.5",
     "tailwindcss": "^1.6.2",
