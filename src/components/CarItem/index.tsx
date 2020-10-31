@@ -3,6 +3,7 @@ import { CarModel } from 'database/models/Car';
 import Link from 'next/link';
 import { FiAlertTriangle } from 'react-icons/fi';
 import Spinner from 'components/Spinner';
+import Image from 'next/image';
 
 export interface CarItemProps {
     car: CarModel;
@@ -17,10 +18,11 @@ export default function CarItem({ car, error, isValidating }: CarItemProps) {
             <a className="animate-fade-in">
                 <div className="max-w-sm rounded overflow-hidden shadow-lg h-full cursor-pointer">
                     <div className="relative pb-2/3">
-                        <img
+                        <Image
                             className="absolute w-full h-full object-cover"
                             src={car.photoUrl}
                             alt={`${car.make} ${car.model} (${car.year})`}
+                            unsized
                         />
                     </div>
                     <div className="px-6 py-4 overflow-hidden relative">
