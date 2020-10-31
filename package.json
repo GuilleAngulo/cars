@@ -22,7 +22,8 @@
   },
   "lint-staged": {
     "src/**/*": [
-      "yarn lint --fix"
+      "yarn lint --fix",
+      "yarn typecheck"
     ]
   },
   "dependencies": {
