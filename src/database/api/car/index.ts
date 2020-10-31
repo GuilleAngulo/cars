@@ -3,7 +3,7 @@ import { CarModel, MakeSelect, ModelSelect } from 'database/models/Car';
 import { ParsedUrlQuery } from 'querystring';
 import { getValueString, getValueNumber } from 'utils';
 
-export async function getCarById(id?: number | string | string[]) {
+export async function getCarById<CarModel>(id?: number | string | string[]) {
     const [car] = await db<CarModel[]>('cars').where('id', id);
     return car;
 }

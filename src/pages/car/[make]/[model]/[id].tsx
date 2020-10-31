@@ -8,7 +8,7 @@ import SEO from 'components/SEO';
 import Image from 'next/image';
 
 interface CarDetailsProps {
-    car: CarModel | null | undefined;
+    car: CarModel | null;
 }
 
 export default function CarDetails({ car }: CarDetailsProps) {
@@ -28,8 +28,8 @@ export default function CarDetails({ car }: CarDetailsProps) {
                     <div className="w-full md:flex-shrink-0 w-2/3 lg:w-2/3 md:w-full sm:w-full">
                         <Image
                             className="rounded-lg md:w-full"
-                            src={car?.photoUrl}
-                            alt={`${car?.make} ${car?.model} (${car?.year})`}
+                            src={car.photoUrl}
+                            alt={`${car.make} ${car.model} (${car.year})`}
                             unsized
                         />
                     </div>
