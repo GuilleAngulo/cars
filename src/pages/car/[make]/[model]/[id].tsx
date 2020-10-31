@@ -69,7 +69,7 @@ export default function CarDetails({ car }: CarDetailsProps) {
     );
 }
 
-export const getServerSideProps: GetServerSideProps<CarDetailsProps> = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
     const make = getAsString(context.params?.make);
     const model = getAsString(context.params?.model).split('-').join(' ');
     const id = context.params?.id;
@@ -87,7 +87,8 @@ export const getServerSideProps: GetServerSideProps<CarDetailsProps> = async (co
         const isModelValid = models
             .map((model) => model.name.toLowerCase())
             .includes(model.toLowerCase());
-        const isCarValid = car.make === make && car.model === model;
+
+        const isCarValid = car[0].make === make && car[0].model === model;
 
         if (isMakeValid && isModelValid && isCarValid) return { props: { car } };
     } catch (err) {

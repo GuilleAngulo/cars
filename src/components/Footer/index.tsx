@@ -1,6 +1,6 @@
 import { routes } from 'components/Header';
 import Link from 'next/link';
-import { capitalize } from 'utils';
+import { capitalize } from 'src/utils';
 
 export default function Footer() {
     return (

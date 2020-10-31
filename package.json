@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@next/bundle-analyzer": "^9.5.2",
+    "@tailwindcss/ui": "^0.6.2",
     "axios": "^0.19.2",
     "cross-env": "^7.0.2",
     "formik": "^2.1.5",
