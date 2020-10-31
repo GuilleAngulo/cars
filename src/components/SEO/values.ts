@@ -1,4 +1,4 @@
-export const SEO_VALUES = {
+export default {
     title: 'Cars',
     description: 'Search cars for sale.',
     indexable: false,

@@ -1,5 +1,5 @@
-import Head from 'next/head';
-import { SEO_VALUES } from 'components/SEO/values';
+import NextHead from 'next/head';
+import SEO_VALUES from 'components/SEO/values';
 
 export interface SEOProps {
     title?: string;
@@ -10,7 +10,7 @@ export interface SEOProps {
 
 export default function SEO({ title, description, canonicalPath, image }: SEOProps) {
     return (
-        <Head>
+        <NextHead>
             <title>{`Cars | ${title}` || SEO_VALUES.title}</title>
             <link rel="icon" href="/favicon.ico" />
             <meta charSet="utf-8" />
@@ -38,6 +38,6 @@ export default function SEO({ title, description, canonicalPath, image }: SEOPro
             {SEO_VALUES.twitter.author && (
                 <meta name="twitter:site" content={SEO_VALUES.twitter.author} />
             )}
-        </Head>
+        </NextHead>
     );
 }

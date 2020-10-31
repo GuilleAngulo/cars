@@ -5,6 +5,7 @@ import { getAsString } from 'utils';
 import useSWR from 'swr';
 import { useEffect, useState } from 'react';
 import Button from 'components/Button';
+
 export interface SearchProps {
     makes: MakeSelect[];
     models: ModelSelect[];
